@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Main {
@@ -16,15 +20,8 @@ public class Main {
             switch (a) {
 
                 case 1:
-                    int userid = User.login();
+                   User.login();
 
-
-                    if (userid != -1) {
-                        Student.viewProfile(userid);   // ✅ go to Student class
-                    } else {
-                        System.out.println("Login failed. Try again.");
-                    }
-                    break;
                 case 2:
                     if (User.register()) {
                         User.login();

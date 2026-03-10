@@ -187,6 +187,8 @@ public class User{
     }
 
     static int login(){
+        int userid=0;
+        String role1="";
         System.out.println("..........................");
         System.out.println("          Login           ");
         System.out.println("..........................");
@@ -203,8 +205,18 @@ public class User{
             ResultSet names = user.executeQuery();
             if(names.next()){
                 System.out.println("Login Successful");
-                int userid = names.getInt("USER_ID");
-                return userid;
+                userid = names.getInt("USER_ID");
+                role1 = names.getString("ROLE");
+
+                switch (role1){
+                    case "Teacher":
+                        Teacher.teacherMenu(userid);
+                        break;
+                    case "Student":
+                        Student.studentMenu(userid);
+                        break;
+                }
+
 
             }else {
                 System.out.println("Invalid Username or Password");
@@ -212,10 +224,13 @@ public class User{
             }
 
 
-        }catch (Exception e){
+            } catch (Exception e){
             e.printStackTrace();
         }
-        return -1;
+
+
+
+        return userid;
     }
 
 }
