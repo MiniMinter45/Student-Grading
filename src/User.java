@@ -27,13 +27,9 @@ class H2Connection {
 
 public class User{
     static Scanner scan = new Scanner(System.in);
-    static void main() {
-        H2Connection con = new H2Connection();
-        con.connect();
-        register();
-    }
 
-    static void register() {
+
+    static boolean register() {
         int a;
         System.out.println("Chose A Role");
         System.out.println("1.Teacher");
@@ -42,13 +38,15 @@ public class User{
         System.out.println("...................");
         if (a == 1){
             teacherReg();
+
         } else if (a == 2) {
-            System.out.println("Welcome to Student Register");
+            studentReg();
+
         }else {
             System.out.println("Enter a Valid Number");
         }
 
-
+        return true;
     }
 
     static void teacherReg(){
@@ -82,6 +80,8 @@ public class User{
         datainput(Fname, Lname, Email, Uname, Pword,role1);
         System.out.println("Registered Successfully");
 
+
+
     }
     static void datainput(String Fname, String Lname,String Email, String Uname, String Pword,String role1){
         try (Connection conn = DriverManager.getConnection(H2Connection.url)){
@@ -110,9 +110,101 @@ public class User{
 
 
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
+    static void studentReg(){
+        String Fname;
+        String Lname;
+        String Uname;
+        String Pword;
+        String Email;
+        String role1 = "Student";
+
+
+        System.out.println("Welcome to Student Register");
+        System.out.println("---------------------------");
+        scan.nextLine();
+
+        System.out.print("Enter First Name   : ");
+        Fname = scan.nextLine();
+
+        System.out.print("Enter Last Name    : ");
+        Lname = scan.nextLine();
+
+        System.out.print("Enter Last Email   : ");
+        Email = scan.nextLine();
+
+        System.out.print("Create a Username  : ");
+        Uname = scan.nextLine();
+
+        System.out.print("Create a Password  : ");
+        Pword = scan.nextLine();
+
+        datainput2(Fname, Lname, Email, Uname, Pword,role1);
+        System.out.println("Registered Successfully");
+
+
+    }
+    static void datainput2(String Fname, String Lname,String Email, String Uname, String Pword,String role1){
+        try (Connection conn = DriverManager.getConnection(H2Connection.url)){
+
+            String loginin = "INSERT INTO USERS(USERNAME,PASSWORD,ROLE) VALUES (?,?,?)";
+            PreparedStatement in2 = conn.prepareStatement(loginin, Statement.RETURN_GENERATED_KEYS);
+            in2.setString(1,Uname);
+            in2.setString(2,Pword);
+            in2.setString(3,role1);
+            in2.executeUpdate();
+
+            ResultSet rs = in2.getGeneratedKeys();
+            int userid = 0;
+            if (rs.next()){
+                userid = rs.getInt(1);
+            }
+
+            String input = "INSERT INTO STUDENT(USER_ID,FIRST_NAME,LAST_NAME,EMAIL) VALUES (?,?,?,?)";
+            PreparedStatement in1 = conn.prepareStatement(input, Statement.RETURN_GENERATED_KEYS);
+            in1.setInt(1,userid);
+            in1.setString(2,Fname);
+            in1.setString(3,Lname);
+            in1.setString(4,Email);
+
+            in1.executeUpdate();
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    static void login(){
+        System.out.print("Enter Username : ");
+        String username = scan.nextLine();
+        System.out.print("Enter Password : ");
+        String password = scan.nextLine();
+        try(Connection conn = DriverManager.getConnection(H2Connection.url)){
+            String check = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+            PreparedStatement user = conn.prepareStatement(check);
+            user.setString(1,username);
+            user.setString(2,password);
+
+            ResultSet names = user.executeQuery();
+            if(names.next()){
+                System.out.println("Login Successful");
+            }else {
+                System.out.println("Invalid Username or Password");
+            }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
