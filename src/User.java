@@ -34,6 +34,7 @@ public class User{
         System.out.println("Chose A Role");
         System.out.println("1.Teacher");
         System.out.println("2.Student");
+        System.out.print("Enter 1 or 2 : ");
         a = scan.nextInt();
         System.out.println("...................");
         if (a == 1){
@@ -57,9 +58,9 @@ public class User{
         String Email;
         String role1 = "Teacher";
 
-
+        System.out.println("............................");
         System.out.println("Welcome to Teacher Register");
-        System.out.println("---------------------------");
+        System.out.println("............................");
         scan.nextLine();
 
         System.out.print("Enter First Name   : ");
@@ -79,6 +80,7 @@ public class User{
 
         datainput(Fname, Lname, Email, Uname, Pword,role1);
         System.out.println("Registered Successfully");
+        System.out.println("........................");
 
 
 
@@ -125,9 +127,9 @@ public class User{
         String Email;
         String role1 = "Student";
 
-
+        System.out.println("............................");
         System.out.println("Welcome to Student Register");
-        System.out.println("---------------------------");
+        System.out.println("............................");
         scan.nextLine();
 
         System.out.print("Enter First Name   : ");
@@ -147,6 +149,7 @@ public class User{
 
         datainput2(Fname, Lname, Email, Uname, Pword,role1);
         System.out.println("Registered Successfully");
+        System.out.println("...........................");
 
 
     }
@@ -184,6 +187,9 @@ public class User{
     }
 
     static void login(){
+        System.out.println("..........................");
+        System.out.println("          Login           ");
+        System.out.println("..........................");
         System.out.print("Enter Username : ");
         String username = scan.nextLine();
         System.out.print("Enter Password : ");
@@ -200,6 +206,7 @@ public class User{
             }else {
                 System.out.println("Invalid Username or Password");
             }
+            System.out.println("...............................");
 
 
         }catch (Exception e){

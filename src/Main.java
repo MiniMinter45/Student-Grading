@@ -7,27 +7,30 @@ public class Main {
         User ps = new User();
 
             H2Connection.connect();
+        while (true) {
+            System.out.println("Do you have a Account");
+            System.out.println("1.Yes");
+            System.out.println("2.No");
+            System.out.print("Enter Number : ");
+            int a = first.nextInt();
+            switch (a) {
 
-        System.out.println("Do you have a Account");
-        System.out.println("1.Yes");
-        System.out.println("2.No");
-        System.out.print("Enter Number : ");
-        int a = first.nextInt();
-        switch (a){
-
-            case 1:
-                User.login();
-                break;
-            case 2:
-                if (User.register()){
+                case 1:
                     User.login();
                     break;
-                }
-            default:
-                break;
+                case 2:
+                    if (User.register()) {
+                        User.login();
+                        break;
+                    }
+                default:
+                    break;
+            }
+            int m = first.nextInt();
+        if (m == 1){
+            break;
         }
 
-
-
+            }
+        }
     }
-}
