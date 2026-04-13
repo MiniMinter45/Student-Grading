@@ -186,7 +186,7 @@ public class User{
 
     }
 
-    static void login(){
+    static int login(){
         System.out.println("..........................");
         System.out.println("          Login           ");
         System.out.println("..........................");
@@ -203,15 +203,19 @@ public class User{
             ResultSet names = user.executeQuery();
             if(names.next()){
                 System.out.println("Login Successful");
+                int userid = names.getInt("USER_ID");
+                return userid;
+
             }else {
                 System.out.println("Invalid Username or Password");
+                return -1;
             }
-            System.out.println("...............................");
 
 
         }catch (Exception e){
             e.printStackTrace();
         }
+        return -1;
     }
 
 }
