@@ -3,9 +3,10 @@ import java.sql.*;
 
 public class Student {
 
+
     static Scanner scan = new Scanner(System.in);
 
-    static void studentMenu(int userId) {
+    static void studentMenu(int userid) {
 
         while (true) {
             System.out.println("\n------ Student Menu ------");
@@ -19,35 +20,36 @@ public class Student {
 
             switch (choice) {
                 case 1:
-                    viewProfile(userId);
+                    viewProfile(userid);
                     break;
                 case 2:
-                    viewCourses(userId);
+                    System.out.println("view mycourse");
                     break;
                 case 3:
-                    viewResults(userId);
+                    System.out.println("view result");
                     break;
                 case 4:
                     System.out.println("Logging out...");
                     return;
                 default:
                     System.out.println("Invalid choice");
+                    break;
             }
         }
     }
+    static void viewProfile(int userid){
 
-    static void viewProfile(int userId) {
 
-        try (Connection conn = DriverManager.getConnection(H2Connection.url)) {
 
-            String sql = "SELECT * FROM STUDENT WHERE USER_ID = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, userId);
+        try (Connection conn = DriverManager.getConnection(H2Connection.url)){
 
+            String query = "SELECT * FROM STUDENT WHERE USER_ID = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,userid);
             ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                System.out.println("\n--- My Profile ---");
+            if(rs.next()){
+                System.out.println("\n------ My Profile ------");
+                System.out.println("Student ID : " + rs.getInt("STUDENT_ID"));
                 System.out.println("First Name : " + rs.getString("FIRST_NAME"));
                 System.out.println("Last Name  : " + rs.getString("LAST_NAME"));
                 System.out.println("Email      : " + rs.getString("EMAIL"));
@@ -55,9 +57,12 @@ public class Student {
                 System.out.println("Profile not found.");
             }
 
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 }
