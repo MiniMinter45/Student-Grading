@@ -16,7 +16,14 @@ public class Main {
             switch (a) {
 
                 case 1:
-                    User.login();
+                    int userid = User.login();
+
+
+                    if (userid != -1) {
+                        Student.viewProfile(userid);   // ✅ go to Student class
+                    } else {
+                        System.out.println("Login failed. Try again.");
+                    }
                     break;
                 case 2:
                     if (User.register()) {
@@ -26,10 +33,14 @@ public class Main {
                 default:
                     break;
             }
+            System.out.println("enter number 1 to back : ");
             int m = first.nextInt();
         if (m == 1){
+
             break;
+
         }
+
 
             }
         }
