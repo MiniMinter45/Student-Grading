@@ -55,6 +55,7 @@ public class Teacher {
             String query = "SELECT * FROM TEACHER WHERE USER_ID = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1,userid);
+
             try(ResultSet rs = ps.executeQuery()){
                 if (rs.next()) {
                     System.out.println("\n------ My Profile ------");
@@ -77,11 +78,11 @@ public class Teacher {
     static void studentMenu(int userid){
 
         System.out.print("Enter Student ID to view: ");
-        int userId = scan.nextInt();
+        int setInt = scan.nextInt();
 
         try(Connection conn = DriverManager.getConnection(H2Connection.url)){
 
-            String query = "SELECT * FROM STUDENT WHERE USER_ID = ? AND ROLE = 'Student'";
+            String query = "SELECT * FROM STUDENT WHERE USER_ID = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1,userid);
             try(ResultSet rs = ps.executeQuery()){
