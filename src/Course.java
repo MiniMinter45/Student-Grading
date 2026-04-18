@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.util.Scanner;
 
 public class Course {
+    static Scanner crse = new Scanner(System.in);
 
     static void addcourse(int userid){
         Scanner crse = new Scanner(System.in);
@@ -43,7 +44,29 @@ public class Course {
     }
     static void seecourse(){
 
+        try(Connection conn1 = DriverManager.getConnection(H2Connection.url)) {
 
+            PreparedStatement ps3 = conn1.prepareStatement("SELECT * FROM COURSE");
+            ResultSet rs2 = ps3.executeQuery();
+
+          while (rs2.next()){
+              System.out.println("Course Name  : " + rs2.getString("COURSE_NAME"));
+              System.out.println("Course Code  :" + rs2.getString("COURSE_CODE"));
+              System.out.println("..................................");
+
+          }
+
+        } catch (SQLException e) {
+
+        }
 
     }
+    static void addstoc(){
+
+        System.out.println("Enter Student ID : ");
+        int id = crse.nextInt();
+        System.out.println("Enter Course Code  :");
+
+    }
+
 }
