@@ -14,6 +14,7 @@ public class Student {
             System.out.println("2. View My Courses");
             System.out.println("3. View Results");
             System.out.println("4. Logout");
+            System.out.println(userid);
             System.out.print("Enter choice: ");
 
             int choice = scan.nextInt();
@@ -48,7 +49,6 @@ public class Student {
             ps.setInt(1,userid);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                System.out.println("\n------ My Profile ------");
                 System.out.println("Student ID : " + rs.getInt("STUDENT_ID"));
                 System.out.println("First Name : " + rs.getString("FIRST_NAME"));
                 System.out.println("Last Name  : " + rs.getString("LAST_NAME"));
