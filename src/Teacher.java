@@ -16,7 +16,9 @@ public class Teacher {
             System.out.println("4. Add Student to Courses");
             System.out.println("5. Enter Student Marks");
             System.out.println("6. Logout");
+            System.out.println(userid);
             System.out.print("Enter choice: ");
+
 
             int choice = scan.nextInt();
 
@@ -25,10 +27,10 @@ public class Teacher {
                     profile(userid);
                     break;
                 case 2:
-                    System.out.println("Add New Courses");
+                    Course.addcourse(userid);
                     break;
                 case 3:
-                    studentMenu(userid);
+                    Student.viewProfile(userid);
                     break;
                 case 4:
                     System.out.println("Add Student to Courses");
@@ -59,7 +61,7 @@ public class Teacher {
             try(ResultSet rs = ps.executeQuery()){
                 if (rs.next()) {
                     System.out.println("\n------ My Profile ------");
-                    System.out.println("Teacher ID : " + rs.getInt("USER_ID"));
+                    System.out.println("Teacher ID : " + rs.getInt("TEACHER_ID"));
                     System.out.println("First Name : " + rs.getString("FIRST_NAME"));
                     System.out.println("Last Name  : " + rs.getString("LAST_NAME"));
                     System.out.println("Email      : " + rs.getString("EMAIL"));
@@ -69,35 +71,6 @@ public class Teacher {
             }
         }catch (Exception e){
             e.printStackTrace();
-        }
-    }
-
-
-    //----------------View Student Profile------------------
-
-    static void studentMenu(int userid){
-
-        System.out.print("Enter Student ID to view: ");
-        int setInt = scan.nextInt();
-
-        try(Connection conn = DriverManager.getConnection(H2Connection.url)){
-
-            String query = "SELECT * FROM STUDENT WHERE USER_ID = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1,userid);
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
-                    System.out.println("\n------ Student Profile ------");
-                    System.out.println("Student ID : " + rs.getInt("STUDENT_ID"));
-                    System.out.println("First Name : " + rs.getString("FIRST_NAME"));
-                    System.out.println("Last Name  : " + rs.getString("LAST_NAME"));
-                    System.out.println("Email      : " + rs.getString("EMAIL"));
-                } else {
-                    System.out.println("Student not found or the ID is not found.");
-                }
-            }
-        }catch (Exception e) {
-            System.out.println("Error retrieving profile: " + e.getMessage());
         }
     }
 }
