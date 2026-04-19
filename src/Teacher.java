@@ -12,10 +12,11 @@ public class Teacher {
             System.out.println("\n------ Teacher  Menu ------");
             System.out.println("1. View My Profile");
             System.out.println("2. Add New Courses");
-            System.out.println("3. View Student Profile");
-            System.out.println("4. Add Student to Courses");
-            System.out.println("5. Enter Student Marks");
-            System.out.println("6. Logout");
+            System.out.println("3. See Courses");
+            System.out.println("4. View Student Profile");
+            System.out.println("5. Add Student to Courses");
+            System.out.println("6. Enter Student Marks");
+            System.out.println("7. Logout");
             System.out.println(userid);
             System.out.print("Enter choice: ");
 
@@ -30,17 +31,20 @@ public class Teacher {
                     Course.addcourse(userid);
                     break;
                 case 3:
-                    Student.viewProfile(userid);
+                    Course.seecourse();
                     break;
                 case 4:
-                    System.out.println("Add Student to Courses");
+                    Student.viewProfile(userid);
                     break;
                 case 5:
-                    System.out.println("Enter Student Marks");
+                    Course.addstoc();
                     break;
                 case 6:
-                    System.out.println("Logging out...");
+                    System.out.println("Enter Marks");
                     return;
+                case 7:
+                    System.out.println("Logging Out");
+                    break;
                 default:
                     System.out.println("Invalid choice");
                     break;
