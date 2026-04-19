@@ -11,6 +11,7 @@ public class Course {
 
         System.out.println("Add courses to the system");
         System.out.println(".........................");
+        System.out.println("(Course Code should be consist of three letters and four numbers. letters should be capital. (eg: ABC2003))");
         System.out.print("Enter Course Code : ");
         String code = crse.nextLine();
         System.out.print("Enter Course Name : ");
@@ -62,11 +63,55 @@ public class Course {
 
     }
     static void addstoc(){
+        while (true) {
 
-        System.out.println("Enter Student ID : ");
-        int id = crse.nextInt();
-        System.out.println("Enter Course Code  :");
 
+            System.out.print("Enter Student ID  : ");
+            int id = crse.nextInt();
+            crse.nextLine();
+            System.out.print("Enter Course Code :");
+            String code = crse.nextLine();
+            try (Connection conn2 = DriverManager.getConnection(H2Connection.url)) {
+                PreparedStatement ps3 = conn2.prepareStatement("SELECT 1 FROM STUDENTS WHERE STUDENT_ID = ?");
+                ps3.setInt(1, id);
+                ResultSet rs3 = ps3.executeQuery();
+                if (!rs3.next()) {
+
+                    System.out.println("No Student with this ID");
+                    return;
+                }
+
+                PreparedStatement ps4 = conn2.prepareStatement("SELECT 1 FROM COURSE WHERE COURSECODE = ?");
+                ps4.setString(1, code);
+                ResultSet rs4 = ps4.executeQuery();
+
+                if (!rs4.next()) {
+
+                    System.out.println("No Course with this Code");
+                    return;
+                }
+
+                PreparedStatement ps5 = conn2.prepareStatement("INSERT INTO ENROLLMENT(STUDENT_ID,COURSE_CODE)VALUES (?,?)");
+                ps5.setInt(1, id);
+                ps5.setString(2, code);
+                ps5.executeUpdate();
+                System.out.println("Student Enrolled Successfully");
+                System.out.println(".............................");
+                System.out.println();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println("Do you want to add another?");
+            System.out.println("1.Yes");
+            System.out.println("2.No");
+            int o = crse.nextInt();
+            if (0==2){
+                break;
+            }
+
+
+        }
     }
 
 }
