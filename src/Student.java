@@ -64,5 +64,8 @@ public class Student {
         }
     }
 
+    static void result(){
+
+    }
 
 }
