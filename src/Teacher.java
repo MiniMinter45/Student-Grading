@@ -36,7 +36,7 @@ public class Teacher {
                     System.out.println("Add Student to Courses");
                     break;
                 case 5:
-                    System.out.println("Enter Student Marks");
+                    Course.markentering(userid);
                     break;
                 case 6:
                     System.out.println("Logging out...");
