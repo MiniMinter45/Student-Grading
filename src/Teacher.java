@@ -48,6 +48,7 @@ public class Teacher {
         }
     }
 
+
     //-----------Showing teacher profile-------------
 
     static void profile(int userid){
