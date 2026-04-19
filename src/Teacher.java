@@ -92,7 +92,33 @@ public class Teacher {
                 String code = scan.nextLine();
 
                 System.out.print("Enter Marks : ");
-                int marks = scan.nextInt();
+                float marks = scan.nextInt();
+                String grade = "";
+                if (marks >= 90 && marks <=100){
+                    grade = "A+";
+                } else if (marks >= 85 && marks <= 89.9) {
+                    grade = "A";
+                } else if (marks >= 80 && marks <= 84.9) {
+                    grade = "A-";
+                } else if (marks >= 75 && marks <= 79.9) {
+                    grade = "B+";
+                } else if (marks >= 70 && marks <= 74.9) {
+                    grade = "B";
+                } else if (marks >= 65 && marks <= 69.9) {
+                    grade = "B-";
+                } else if (marks >= 60 && marks <= 64.9) {
+                    grade = "C+";
+                } else if (marks >= 55 && marks <= 59.9) {
+                    grade = "C";
+                } else if (marks >= 50 && marks <= 54.9) {
+                    grade = "C-";
+                } else if (marks >= 40 && marks <= 49.9) {
+                    grade = "D";
+                } else if (marks >= 0 && marks <= 39.9) {
+                    grade = "F";
+                }
+
+
 
                 try (Connection cour = DriverManager.getConnection(H2Connection.url)) {
 
@@ -121,13 +147,14 @@ public class Teacher {
                     }
 
 
-                    String sql = "INSERT INTO GRADE (STUDENT_ID,COURSE_CODE,MARKS,TEACHER_ID) VALUES (?,?,?,?)";
+                    String sql = "INSERT INTO GRADE (STUDENT_ID,COURSE_CODE,MARKS,TEACHER_ID,GRADE) VALUES (?,?,?,?,?)";
                     PreparedStatement ps = cour.prepareStatement(sql);
 
                     ps.setInt(1, id);
                     ps.setString(2, code);
-                    ps.setInt(3, marks);
+                    ps.setFloat(3, marks);
                     ps.setInt(4, teacherid);
+                    ps.setString(5,grade);
 
                     ps.executeUpdate();
                     System.out.println("Successfully added marks for Student ID: ");
