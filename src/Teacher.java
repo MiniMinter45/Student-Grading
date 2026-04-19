@@ -77,9 +77,72 @@ public class Teacher {
             e.printStackTrace();
         }
     }
-    static void addmark(){
+
+
+        static void markentering(int userid) {
+
+            System.out.println("Mark Entering System");
+            System.out.println(".........................");
+
+            System.out.print("Enter Student ID : ");
+            int id = scan.nextInt();
+            scan.nextLine();
+            while (true) {
+                System.out.print("Enter Course Code : ");
+                String code = scan.nextLine();
+
+                System.out.print("Enter Marks : ");
+                int marks = scan.nextInt();
+
+                try (Connection cour = DriverManager.getConnection(H2Connection.url)) {
+
+                    PreparedStatement ps2 = cour.prepareStatement("SELECT 1 FROM STUDENT WHERE STUDENT_ID = ?");
+                    ps2.setInt(1, id);
+                    ResultSet rs2 = ps2.executeQuery();
+                    if (!rs2.next()) {
+                        System.out.println("No Student with this ID");
+                        return;
+                    }
+                    PreparedStatement ps3 = cour.prepareStatement("SELECT 1 FROM COURSE WHERE COURSE_ID = ?");
+                    ps3.setString(1, code);
+                    ResultSet rs3 = ps3.executeQuery();
+                    if (!rs3.next()) {
+                        System.out.println("No Course with this Code");
+                        return;
+                    }
+
+                    PreparedStatement ps4 = cour.prepareStatement("SELECT TEACHER_ID FROM TEACHER WHERE USER_ID = ?");
+                    ps4.setInt(1, userid);
+                    ResultSet rs4 = ps4.executeQuery();
+                    int teacherid = 0;
+                    if (rs4.next()) {
+                        teacherid = rs4.getInt("TEACHER_ID");
+
+                    }
+
+
+                    String sql = "INSERT INTO GRADE (STUDENT_ID,COURSE_CODE,MARKS,TEACHER_ID) VALUES (?,?,?,?)";
+                    PreparedStatement ps = cour.prepareStatement(sql);
+
+                    ps.setInt(1, id);
+                    ps.setString(2, code);
+                    ps.setInt(3, marks);
+                    ps.setInt(4, teacherid);
+
+                    ps.executeUpdate();
+                    System.out.println("Successfully added marks for Student ID: ");
+
+                } catch (Exception e) {
+                    System.err.println("Database Error: " + e.getMessage());
+                }
+                System.out.println("If you want to exit press number 1");
+                int a = scan.nextInt();
+                if (a == 1){
+                    break;
+                }
+            }
+        }
 
 
 
     }
-}

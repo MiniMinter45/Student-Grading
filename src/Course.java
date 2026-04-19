@@ -114,4 +114,9 @@ public class Course {
         }
     }
 
+    static void gradecal(){
+
+
+    }
+
 }
