@@ -106,7 +106,7 @@ public class Course {
             System.out.println("1.Yes");
             System.out.println("2.No");
             int o = crse.nextInt();
-            if (0==2){
+            if (o==2){
                 break;
             }
 
