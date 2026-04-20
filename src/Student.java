@@ -1,3 +1,4 @@
+import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -64,8 +65,38 @@ public class Student {
         }
     }
 
-    static void result(){
+    static void result(int userid){
+            try (Connection conn2 = DriverManager.getConnection(H2Connection.url)){
 
+                PreparedStatement ps2 = conn2.prepareStatement("SELECT STUDENT_ID, STUDENT_NAME FROM STUDENT WHERE USER_ID = ?");
+                ps2.setInt(1,userid);
+                ResultSet rs2 = ps2.executeQuery();
+                int stid = 0;
+                String sname= "";
+                if (rs2.next()){
+                    stid = rs2.getInt("STUDENT_ID");
+                    sname = rs2.getString("STUDENT_NAME");
+                    System.out.println("Student ID   : " + stid);
+                    System.out.println("Student Name : " + sname);
+                }
+                    String query1= "SELECT g.GRADE, g.COURSE_CODE, c.COURSE_NAME " +
+                                    "FROM GRADE g JOIN COURSE c " +
+                                    "ON g.COURSE_CODE = c.COURSE_CODE" +
+                                    " WHERE g.STUDENT_ID = ? ";
+                    PreparedStatement ps3 = conn2.prepareStatement(query1);
+                    ps3.setInt(1, stid);
+                    ResultSet rs3 = ps3.executeQuery();
+                    while (rs3.next()){
+                        System.out.println("Course Name : " + rs3.getString("COURSE_NAME")
+                                            + " | Course Code : " + rs3.getString("COURSE_CODE")
+                                            + " | Grade : " + rs3.getString("GRADE"));
+
+
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
     }
 
 }
