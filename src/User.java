@@ -20,7 +20,7 @@ class H2Connection {
         } catch (ClassNotFoundException e) {
             System.out.println("H2 Driver not found!");
         } catch (SQLException e) {
-            System.out.println("no");
+            e.getMessage();
         }
     }
 }

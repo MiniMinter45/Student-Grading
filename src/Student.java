@@ -25,13 +25,13 @@ public class Student {
                     viewProfile(userid);
                     break;
                 case 2:
-                    System.out.println("view mycourse");
+                    viewcourse(userid);
                     break;
                 case 3:
-                    System.out.println("view result");
+                    result(userid);
                     break;
                 case 4:
-                    System.out.println("Logging out...");
+                    Main.main();
                     return;
                 default:
                     System.out.println("Invalid choice");
@@ -68,14 +68,14 @@ public class Student {
     static void result(int userid){
             try (Connection conn2 = DriverManager.getConnection(H2Connection.url)){
 
-                PreparedStatement ps2 = conn2.prepareStatement("SELECT STUDENT_ID, STUDENT_NAME FROM STUDENT WHERE USER_ID = ?");
+                PreparedStatement ps2 = conn2.prepareStatement("SELECT STUDENT_ID, FIRST_NAME, LAST_NAME FROM STUDENT WHERE USER_ID = ?");
                 ps2.setInt(1,userid);
                 ResultSet rs2 = ps2.executeQuery();
                 int stid = 0;
                 String sname= "";
                 if (rs2.next()){
                     stid = rs2.getInt("STUDENT_ID");
-                    sname = rs2.getString("STUDENT_NAME");
+                    sname = rs2.getString("FIRST_NAME") + " " + rs2.getString("LAST_NAME");
                     System.out.println("Student ID   : " + stid);
                     System.out.println("Student Name : " + sname);
                 }
@@ -99,4 +99,36 @@ public class Student {
             }
     }
 
+    static void viewcourse(int userid){
+
+        try(Connection conn3 = DriverManager.getConnection(H2Connection.url)){
+            PreparedStatement ps3 = conn3.prepareStatement("SELECT STUDENT_ID FROM STUDENT WHERE USER_ID = ?");
+            ps3.setInt(1,userid);
+            ResultSet rs3 = ps3.executeQuery();
+            int sid = 0;
+            if (rs3.next()){
+                sid = rs3.getInt("STUDENT_ID");
+            }
+            String sql = "SELECT e.COURSE_CODE, c.COURSE_NAME " +
+                    "FROM ENROLLMENT e JOIN COURSE c " +
+                    "ON e.COURSE_CODE = c.COURSE_CODE " +
+                    "WHERE e.STUDENT_ID = ?";
+            PreparedStatement ps4 = conn3.prepareStatement(sql);
+            ps4.setInt(1,sid);
+            ResultSet rs4 = ps3.executeQuery();
+            int q = 1;
+            while(rs4.next()){
+                System.out.println(q + ".Course Code : "
+                        + rs4.getString("COURSE_CODE")
+                        + " Course Name : " + rs4.getString("COURSE_NAME"));
+                q++;
+
+            }
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

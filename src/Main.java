@@ -5,40 +5,40 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Main {
+    static void loginattempt(){
+        int uid = -1;
+        System.out.println("Login");
+        for (int i = 4; i >= 0; --i){
+            uid = User.login();
+            if (uid != -1){
+                break;
+            }
+            System.out.println("Wrong Username or Password!");
+            System.out.println(i + " Attempts Left!");
+
+        }
+    }
 
     static Scanner first = new Scanner(System.in);
     static void main() {
-        User ps = new User();
+        H2Connection.connect();
 
-            H2Connection.connect();
-        while (true) {
-            System.out.println("Do you have a Account");
-            System.out.println("1.Yes");
-            System.out.println("2.No");
-            System.out.print("Enter Number : ");
-            int a = first.nextInt();
-            switch (a) {
+        System.out.println("Do You Have A Account?");
+        System.out.println("1.Yes");
+        System.out.println("2.No");
+        int a = first.nextInt();
+        if (a == 1){
+            loginattempt();
 
-                case 1:
-                   User.login();
+        } else if (a == 2) {
+            if (User.register()){
+                System.out.println("Registration Successful! Login Now");
+                loginattempt();
 
-                case 2:
-                    if (User.register()) {
-                        User.login();
-                        break;
-                    }
-                default:
-                    break;
             }
-            System.out.println("enter number 1 to back : ");
-            int m = first.nextInt();
-        if (m == 1){
-
-            break;
 
         }
 
-
-            }
-        }
     }
+    }
+ 

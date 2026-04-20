@@ -1,3 +1,4 @@
+import ConsoleTable.ct4j;
 import java.util.Scanner;
 import java.sql.*;
 
@@ -16,7 +17,8 @@ public class Teacher {
             System.out.println("4. View Student Profile");
             System.out.println("5. Add Student to Courses");
             System.out.println("6. Enter Student Marks");
-            System.out.println("7. Logout");
+            System.out.println("7.Student List");
+            System.out.println("8. Logout");
             System.out.println(userid);
             System.out.print("Enter choice: ");
 
@@ -31,7 +33,7 @@ public class Teacher {
                     Course.addcourse(userid);
                     break;
                 case 3:
-                    Course.seecourse();
+                    Course.seecourse(userid);
                     break;
                 case 4:
                     Student.viewProfile(userid);
@@ -40,10 +42,13 @@ public class Teacher {
                     Course.addstoc();
                     break;
                 case 6:
-                    System.out.println("Enter Marks");
-                    return;
+                    markentering(userid);
+                    break;
+                case 8:
+                    Main.main();
+                    break;
                 case 7:
-                    System.out.println("Logging Out");
+                    studentlist();
                     break;
                 default:
                     System.out.println("Invalid choice");
@@ -51,8 +56,51 @@ public class Teacher {
             }
         }
     }
+    static void studentlist(){
+        ct4j table = new ct4j();
+        try (Connection conn2 = DriverManager.getConnection(H2Connection.url)){
+            PreparedStatement ps1 = conn2.prepareStatement("SELECT * FROM STUDENT");
+            ResultSet rs2 = ps1.executeQuery();
 
-    //-----------Showing teacher profile-------------
+           table.setHeader("ID","Name");
+            while (rs2.next()){
+                String name = rs2.getString("FIRST_NAME") +" "+ rs2.getString("LAST_NAME");
+                String id = rs2.getString("STUDENT_ID");
+                table.addRow(id,name);
+                table.setHorizontalSeparator('-');
+                table.setVerticalSeparator('|');
+                table.setCornerJoint('+');
+                table.setUppercaseHeaders(true);
+            }
+            table.printTable();
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+
+    }
+
+
+    static void studentprof(){
+        System.out.println("Enter Student ID");
+        int a = scan.nextInt();
+        try(Connection conn4 = DriverManager.getConnection(H2Connection.url)) {
+            PreparedStatement ps4 = conn4.prepareStatement("SELECT USER_ID FROM STUDENT WHERE STUDENT_ID = ?");
+            ps4.setInt(1,a);
+            ResultSet rs4 = ps4.executeQuery();
+            int u = 0;
+            if (rs4.next()){
+                u= rs4.getInt("USER_ID");
+            }
+            Student.viewProfile(u);
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+
+    }
 
     static void profile(int userid){
 

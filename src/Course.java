@@ -34,16 +34,17 @@ public class Course {
             ps2.setString(1,nme);
             ps2.setInt(2,teacherid);
             ps2.setString(3,code);
+            ps2.executeUpdate();
 
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
 
 
     }
-    static void seecourse(){
+    static void seecourse(int userid){
 
         try(Connection conn1 = DriverManager.getConnection(H2Connection.url)) {
 
@@ -58,6 +59,7 @@ public class Course {
           }
 
         } catch (SQLException e) {
+            e.printStackTrace();
 
         }
 
