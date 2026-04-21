@@ -31,12 +31,12 @@ public class User{
 
     static boolean register() {
         int a;
+        System.out.println(".....................");
         System.out.println("Chose A Role");
         System.out.println("1.Teacher");
         System.out.println("2.Student");
         System.out.print("Enter 1 or 2 : ");
         a = scan.nextInt();
-        System.out.println("...................");
         if (a == 1){
             teacherReg();
 

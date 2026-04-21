@@ -26,6 +26,7 @@ public class Main {
         System.out.println("Do You Have A Account?");
         System.out.println("1.Yes");
         System.out.println("2.No");
+        System.out.print("Enter Number : ");
         int a = first.nextInt();
         if (a == 1){
             loginattempt();
