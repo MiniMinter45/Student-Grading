@@ -52,7 +52,7 @@ public class Course {
 
         try(Connection conn1 = DriverManager.getConnection(H2Connection.url)) {
 
-            PreparedStatement ps3 = conn1.prepareStatement("SELECT * FROM COURSE");
+            PreparedStatement ps3 = conn1.prepareStatement("SELECT COURSE_NAME, COURSE_CODE FROM COURSE");
             ResultSet rs2 = ps3.executeQuery();
             table.setHeader("Course Name", "Course Code");
           while (rs2.next()){
@@ -64,11 +64,11 @@ public class Course {
               table.setCornerJoint('+');
               table.setUppercaseHeaders(true);
 
-
           }
-
+            table.printTable();
         } catch (Exception e) {
             e.getMessage();
+
 
         }
 
@@ -83,7 +83,7 @@ public class Course {
             System.out.print("Enter Course Code :");
             String code = crse.nextLine();
             try (Connection conn2 = DriverManager.getConnection(H2Connection.url)) {
-                PreparedStatement ps3 = conn2.prepareStatement("SELECT 1 FROM STUDENTS WHERE STUDENT_ID = ?");
+                PreparedStatement ps3 = conn2.prepareStatement("SELECT 1 FROM STUDENT WHERE STUDENT_ID = ?");
                 ps3.setInt(1, id);
                 ResultSet rs3 = ps3.executeQuery();
                 if (!rs3.next()) {
@@ -92,7 +92,7 @@ public class Course {
                     return;
                 }
 
-                PreparedStatement ps4 = conn2.prepareStatement("SELECT 1 FROM COURSE WHERE COURSECODE = ?");
+                PreparedStatement ps4 = conn2.prepareStatement("SELECT 1 FROM COURSE WHERE COURSE_CODE = ?");
                 ps4.setString(1, code);
                 ResultSet rs4 = ps4.executeQuery();
 

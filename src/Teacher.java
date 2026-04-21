@@ -83,7 +83,7 @@ public class Teacher {
 
 
     static void studentprof(){
-        System.out.println("Enter Student ID");
+        System.out.print("Enter Student ID");
         int a = scan.nextInt();
         try(Connection conn4 = DriverManager.getConnection(H2Connection.url)) {
             PreparedStatement ps4 = conn4.prepareStatement("SELECT USER_ID FROM STUDENT WHERE STUDENT_ID = ?");
@@ -176,7 +176,7 @@ public class Teacher {
                         System.out.println("No Student with this ID");
                         return;
                     }
-                    PreparedStatement ps3 = cour.prepareStatement("SELECT 1 FROM COURSE WHERE COURSE_ID = ?");
+                    PreparedStatement ps3 = cour.prepareStatement("SELECT 1 FROM COURSE WHERE COURSE_CODE = ?");
                     ps3.setString(1, code);
                     ResultSet rs3 = ps3.executeQuery();
                     if (!rs3.next()) {
@@ -194,7 +194,7 @@ public class Teacher {
                     }
 
 
-                    String sql = "INSERT INTO GRADE (STUDENT_ID,COURSE_CODE,MARKS,TEACHER_ID,GRADE) VALUES (?,?,?,?,?)";
+                    String sql = "INSERT INTO GRADE (STUDENT_ID,COURSE_CODE,MARK,TEACHER_ID,GRADE) VALUES (?,?,?,?,?)";
                     PreparedStatement ps = cour.prepareStatement(sql);
 
                     ps.setInt(1, id);
