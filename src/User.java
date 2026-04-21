@@ -69,7 +69,7 @@ public class User{
         System.out.print("Enter Last Name    : ");
         Lname = scan.nextLine();
 
-        System.out.print("Enter Last Email   : ");
+        System.out.print("Enter Email        : ");
         Email = scan.nextLine();
 
         System.out.print("Create a Username  : ");
@@ -138,7 +138,7 @@ public class User{
         System.out.print("Enter Last Name    : ");
         Lname = scan.nextLine();
 
-        System.out.print("Enter Last Email   : ");
+        System.out.print("Enter Email        : ");
         Email = scan.nextLine();
 
         System.out.print("Create a Username  : ");
