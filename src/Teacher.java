@@ -17,7 +17,7 @@ public class Teacher {
             System.out.println("4. View Student Profile");
             System.out.println("5. Add Student to Courses");
             System.out.println("6. Enter Student Marks");
-            System.out.println("7.Student List");
+            System.out.println("7. Student List");
             System.out.println("8. Logout");
             System.out.println(userid);
             System.out.print("Enter choice: ");
@@ -114,8 +114,7 @@ public class Teacher {
                 if (rs.next()) {
                     System.out.println("\n------ My Profile ------");
                     System.out.println("Teacher ID : " + rs.getInt("TEACHER_ID"));
-                    System.out.println("First Name : " + rs.getString("FIRST_NAME"));
-                    System.out.println("Last Name  : " + rs.getString("LAST_NAME"));
+                    System.out.println("Full Name : " + rs.getString("FIRST_NAME") + rs.getString("LAST_NAME"));
                     System.out.println("Email      : " + rs.getString("EMAIL"));
                 } else {
                     System.out.println("Profile not found.");

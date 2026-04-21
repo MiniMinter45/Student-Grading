@@ -1,6 +1,7 @@
 import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 import java.sql.*;
+import ConsoleTable.ct4j;
 
 public class Student {
 
@@ -66,6 +67,7 @@ public class Student {
     }
 
     static void result(int userid){
+        ct4j table = new ct4j();
             try (Connection conn2 = DriverManager.getConnection(H2Connection.url)){
 
                 PreparedStatement ps2 = conn2.prepareStatement("SELECT STUDENT_ID, FIRST_NAME, LAST_NAME FROM STUDENT WHERE USER_ID = ?");
@@ -86,13 +88,18 @@ public class Student {
                     PreparedStatement ps3 = conn2.prepareStatement(query1);
                     ps3.setInt(1, stid);
                     ResultSet rs3 = ps3.executeQuery();
+                    table.setHeader("Course Name", "Course Code", "Grade");
                     while (rs3.next()){
-                        System.out.println("Course Name : " + rs3.getString("COURSE_NAME")
-                                            + " | Course Code : " + rs3.getString("COURSE_CODE")
-                                            + " | Grade : " + rs3.getString("GRADE"));
-
-
+                       String name = rs3.getString("COURSE_NAME");
+                        String code = rs3.getString("COURSE_CODE");
+                        String grade = rs3.getString("GRADE");
+                        table.addRow(name,code,grade);
+                        table.setHorizontalSeparator('-');
+                        table.setVerticalSeparator('|');
+                        table.setCornerJoint('+');
+                        table.setUppercaseHeaders(true);
                 }
+                    table.printTable();
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
