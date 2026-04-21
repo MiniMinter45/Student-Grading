@@ -33,10 +33,10 @@ public class Teacher {
                     Course.addcourse(userid);
                     break;
                 case 3:
-                    Course.seecourse(userid);
+                    Course.seecourse();
                     break;
                 case 4:
-                    Student.viewProfile(userid);
+                    studentprof();
                     break;
                 case 5:
                     Course.addstoc();

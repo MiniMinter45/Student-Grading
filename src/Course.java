@@ -1,9 +1,12 @@
-import java.sql.*;
 
+import ConsoleTable.ct4j;
+import java.sql.*;
 import java.sql.DriverManager;
 import java.util.Scanner;
 
+
 public class Course {
+    static ct4j table = new ct4j();
     static Scanner crse = new Scanner(System.in);
 
     static void addcourse(int userid){
@@ -44,22 +47,28 @@ public class Course {
 
 
     }
-    static void seecourse(int userid){
+    static void seecourse(){
+
 
         try(Connection conn1 = DriverManager.getConnection(H2Connection.url)) {
 
             PreparedStatement ps3 = conn1.prepareStatement("SELECT * FROM COURSE");
             ResultSet rs2 = ps3.executeQuery();
-
+            table.setHeader("Course Name", "Course Code");
           while (rs2.next()){
-              System.out.println("Course Name  : " + rs2.getString("COURSE_NAME"));
-              System.out.println("Course Code  :" + rs2.getString("COURSE_CODE"));
-              System.out.println("..................................");
+             String name =  rs2.getString("COURSE_NAME");
+              String code = rs2.getString("COURSE_CODE");
+                table.addRow(name,code);
+              table.setHorizontalSeparator('-');
+              table.setVerticalSeparator('|');
+              table.setCornerJoint('+');
+              table.setUppercaseHeaders(true);
+
 
           }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            e.getMessage();
 
         }
 

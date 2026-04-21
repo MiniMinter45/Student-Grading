@@ -107,6 +107,7 @@ public class Student {
     }
 
     static void viewcourse(int userid){
+        ct4j table = new ct4j();
 
         try(Connection conn3 = DriverManager.getConnection(H2Connection.url)){
             PreparedStatement ps3 = conn3.prepareStatement("SELECT STUDENT_ID FROM STUDENT WHERE USER_ID = ?");
@@ -123,14 +124,19 @@ public class Student {
             PreparedStatement ps4 = conn3.prepareStatement(sql);
             ps4.setInt(1,sid);
             ResultSet rs4 = ps3.executeQuery();
-            int q = 1;
+           table.setHeader("Course Name","Course Code");
             while(rs4.next()){
-                System.out.println(q + ".Course Code : "
-                        + rs4.getString("COURSE_CODE")
-                        + " Course Name : " + rs4.getString("COURSE_NAME"));
-                q++;
+                String code = rs4.getString("COURSE_CODE");
+                String name = rs4.getString("COURSE_NAME");
+                table.addRow(name,code);
+                table.setHorizontalSeparator('-');
+                table.setVerticalSeparator('|');
+                table.setCornerJoint('+');
+                table.setUppercaseHeaders(true);
+
 
             }
+            table.printTable();
 
 
         } catch (Exception e) {
