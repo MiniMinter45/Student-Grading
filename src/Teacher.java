@@ -83,7 +83,7 @@ public class Teacher {
 
 
     static void studentprof(){
-        System.out.print("Enter Student ID");
+        System.out.print("Enter Student ID: ");
         int a = scan.nextInt();
         try(Connection conn4 = DriverManager.getConnection(H2Connection.url)) {
             PreparedStatement ps4 = conn4.prepareStatement("SELECT USER_ID FROM STUDENT WHERE STUDENT_ID = ?");
@@ -128,6 +128,7 @@ public class Teacher {
 
         static void markentering(int userid) {
 
+            System.out.println(".........................");
             System.out.println("Mark Entering System");
             System.out.println(".........................");
 
