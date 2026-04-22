@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jcTable">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jcTable.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
