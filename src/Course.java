@@ -9,6 +9,8 @@ public class Course {
     static ct4j table = new ct4j();
     static Scanner crse = new Scanner(System.in);
 
+    //add courses to the system
+
     static void addcourse(int userid){
         Scanner crse = new Scanner(System.in);
 
@@ -47,6 +49,9 @@ public class Course {
 
 
     }
+
+    //see courses in the system
+
     static void seecourse(){
 
 
@@ -73,6 +78,9 @@ public class Course {
         }
 
     }
+
+    //add/connect students to the courses
+
     static void addstoc(){
         while (true) {
 
@@ -110,7 +118,7 @@ public class Course {
                 System.out.println(".............................");
                 System.out.println();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
 
             System.out.println("Do you want to add another?");

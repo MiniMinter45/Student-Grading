@@ -7,6 +7,8 @@ public class Teacher {
 
     static Scanner scan = new Scanner(System.in);
 
+    //teacher menu after login
+
     static void teacherMenu(int userid){
 
         while (true) {
@@ -56,6 +58,9 @@ public class Teacher {
             }
         }
     }
+
+    //to see how many students on the system and their details
+
     static void studentlist(){
         ct4j table = new ct4j();
         try (Connection conn2 = DriverManager.getConnection(H2Connection.url)){
@@ -81,6 +86,7 @@ public class Teacher {
 
     }
 
+    //to see specific students details
 
     static void studentprof(){
         System.out.print("Enter Student ID: ");
@@ -101,6 +107,8 @@ public class Teacher {
 
 
     }
+
+    //to see logged teachers profile detail
 
     static void profile(int userid){
 
@@ -124,6 +132,8 @@ public class Teacher {
             e.printStackTrace();
         }
     }
+
+    //mark entering and grade calculate for the students
 
 
         static void markentering(int userid) {

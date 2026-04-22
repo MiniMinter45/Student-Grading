@@ -8,6 +8,8 @@ public class Student {
 
     static Scanner scan = new Scanner(System.in);
 
+    //student menu
+
     static void studentMenu(int userid) {
 
         while (true) {
@@ -40,6 +42,9 @@ public class Student {
             }
         }
     }
+
+    //view logged student profile
+
     static void viewProfile(int userid){
 
 
@@ -65,6 +70,8 @@ public class Student {
             e.printStackTrace();
         }
     }
+
+    //view results
 
     static void result(int userid){
         ct4j table = new ct4j();
@@ -106,6 +113,8 @@ public class Student {
             }
     }
 
+    //view student enrolled courses
+
     static void viewcourse(int userid){
         ct4j table = new ct4j();
 
@@ -123,7 +132,7 @@ public class Student {
                     "WHERE e.STUDENT_ID = ?";
             PreparedStatement ps4 = conn3.prepareStatement(sql);
             ps4.setInt(1,sid);
-            ResultSet rs4 = ps3.executeQuery();
+            ResultSet rs4 = ps4.executeQuery();
            table.setHeader("Course Name","Course Code");
             while(rs4.next()){
                 String code = rs4.getString("COURSE_CODE");

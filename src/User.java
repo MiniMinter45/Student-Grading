@@ -2,6 +2,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 class H2Connection {
+    //database connection
 
     static final String url = "jdbc:h2:./data/database";
 
@@ -28,7 +29,7 @@ class H2Connection {
 public class User{
     static Scanner scan = new Scanner(System.in);
 
-
+//user register
     static boolean register() {
         int a;
         System.out.println(".....................");
@@ -49,7 +50,7 @@ public class User{
 
         return true;
     }
-
+//teacher register
     static void teacherReg(){
         String Fname;
         String Lname;
@@ -85,6 +86,8 @@ public class User{
 
 
     }
+
+    //database input for teacher register
     static void datainput(String Fname, String Lname,String Email, String Uname, String Pword,String role1){
         try (Connection conn = DriverManager.getConnection(H2Connection.url)){
 
@@ -118,7 +121,7 @@ public class User{
         }
 
     }
-
+//student register
     static void studentReg(){
         String Fname;
         String Lname;
@@ -153,6 +156,7 @@ public class User{
 
 
     }
+    //database input for student register
     static void datainput2(String Fname, String Lname,String Email, String Uname, String Pword,String role1){
         try (Connection conn = DriverManager.getConnection(H2Connection.url)){
 
@@ -185,6 +189,7 @@ public class User{
         }
 
     }
+    //user login
 
     static int login(){
         int userid=0;
@@ -213,6 +218,7 @@ public class User{
                         Teacher.teacherMenu(userid);
                         break;
                     case "Student":
+
                         Student.studentMenu(userid);
                         break;
                 }

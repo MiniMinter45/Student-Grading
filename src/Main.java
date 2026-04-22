@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Main {
+
+    //login attenmps calculator
+
     static void loginattempt(){
         int uid = -1;
         System.out.println("Login");
@@ -20,12 +23,16 @@ public class Main {
     }
 
     static Scanner first = new Scanner(System.in);
+
+    //main method it's start the program by running login attemp or register
+
     static void main() {
         H2Connection.connect();
 
         System.out.println("Do You Have A Account?");
         System.out.println("1.Yes");
         System.out.println("2.No");
+        System.out.println("3.Exit");
         System.out.print("Enter Number : ");
         int a = first.nextInt();
         if (a == 1){
@@ -38,6 +45,10 @@ public class Main {
 
             }
 
+        } else if (a == 3) {
+            System.out.println();
+            System.out.println("Bye");
+            System.exit(0);
         }
 
     }
